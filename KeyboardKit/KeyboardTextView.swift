@@ -81,7 +81,7 @@ open class KeyboardTextView: UITextView, ResponderChainInjection {
         scrollViewKeyHandler
     }
 
-    func nextResponderForResponder(_ responder: UIResponder) -> UIResponder? {
+    public func nextResponderForResponder(_ responder: UIResponder) -> UIResponder? {
         super.next
     }
 

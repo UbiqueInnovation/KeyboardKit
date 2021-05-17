@@ -138,7 +138,7 @@ open class KeyboardCollectionView: UICollectionView, ResponderChainInjection {
         selectableCollectionKeyHandler
     }
 
-    func nextResponderForResponder(_ responder: UIResponder) -> UIResponder? {
+    public func nextResponderForResponder(_ responder: UIResponder) -> UIResponder? {
         if responder === selectableCollectionKeyHandler {
             return scrollViewKeyHandler
         } else if responder === scrollViewKeyHandler {
@@ -165,7 +165,7 @@ open class KeyboardCollectionViewController: UICollectionViewController, Respond
         selectableCollectionKeyHandler
     }
 
-    func nextResponderForResponder(_ responder: UIResponder) -> UIResponder? {
+    public func nextResponderForResponder(_ responder: UIResponder) -> UIResponder? {
         if responder === selectableCollectionKeyHandler {
             return scrollViewKeyHandler
         } else if responder === scrollViewKeyHandler {

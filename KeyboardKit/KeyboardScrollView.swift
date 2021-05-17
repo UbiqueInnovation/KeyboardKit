@@ -102,7 +102,7 @@ open class KeyboardScrollView: UIScrollView, ResponderChainInjection {
         keyHandler
     }
 
-    func nextResponderForResponder(_ responder: UIResponder) -> UIResponder? {
+    public func nextResponderForResponder(_ responder: UIResponder) -> UIResponder? {
         super.next
     }
 }

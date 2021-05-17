@@ -80,7 +80,7 @@ open class KeyboardTableView: UITableView, ResponderChainInjection {
         keyHandler
     }
 
-    func nextResponderForResponder(_ responder: UIResponder) -> UIResponder? {
+    public func nextResponderForResponder(_ responder: UIResponder) -> UIResponder? {
         return super.next
     }
 }
@@ -100,7 +100,7 @@ open class KeyboardTableViewController: UITableViewController, ResponderChainInj
         keyHandler
     }
 
-    func nextResponderForResponder(_ responder: UIResponder) -> UIResponder? {
+    public func nextResponderForResponder(_ responder: UIResponder) -> UIResponder? {
         return super.next
     }
 
@@ -149,11 +149,11 @@ public protocol KeyboardTableViewDelegate: UITableViewDelegate {
 ///
 /// This class is tightly coupled with `UITableView`. It’s a separate class so it can be used
 /// with both `KeyboardTableView` and `KeyboardTableViewController`.
-private class TableViewKeyHandler: InjectableResponder, ResponderChainInjection {
+open class TableViewKeyHandler: InjectableResponder, ResponderChainInjection {
 
     private unowned var tableView: UITableView
 
-    init(tableView: UITableView, owner: ResponderChainInjection) {
+    public init(tableView: UITableView, owner: ResponderChainInjection) {
         self.tableView = tableView
         super.init(owner: owner)
     }
@@ -161,11 +161,11 @@ private class TableViewKeyHandler: InjectableResponder, ResponderChainInjection 
     private lazy var selectableCollectionKeyHandler = SelectableCollectionKeyHandler(selectableCollection: tableView, owner: self)
     private lazy var scrollViewKeyHandler = ScrollViewKeyHandler(scrollView: tableView, owner: self)
 
-    override var next: UIResponder? {
+    public override var next: UIResponder? {
         selectableCollectionKeyHandler
     }
 
-    func nextResponderForResponder(_ responder: UIResponder) -> UIResponder? {
+    public func nextResponderForResponder(_ responder: UIResponder) -> UIResponder? {
         if responder === selectableCollectionKeyHandler {
             return scrollViewKeyHandler
         } else if responder === scrollViewKeyHandler {
@@ -175,7 +175,7 @@ private class TableViewKeyHandler: InjectableResponder, ResponderChainInjection 
         }
     }
 
-    override var keyCommands: [UIKeyCommand]? {
+    override open var keyCommands: [UIKeyCommand]? {
         var commands = super.keyCommands ?? []
 
         if KeyboardTableView.deleteKeyCommand.shouldBeIncludedInResponderChainKeyCommands && tableView.canDeleteFocusOrSelectedRows {
@@ -185,7 +185,7 @@ private class TableViewKeyHandler: InjectableResponder, ResponderChainInjection 
         return commands
     }
 
-    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+    open override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         if action == #selector(kbd_deleteSelectedRows) {
             return tableView.canDeleteFocusOrSelectedRows
         } else {

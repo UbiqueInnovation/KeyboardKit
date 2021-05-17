@@ -2,11 +2,11 @@
 
 import UIKit
 
-protocol ResponderChainInjection: NSObjectProtocol {
+public protocol ResponderChainInjection: NSObjectProtocol {
     func nextResponderForResponder(_ responder: UIResponder) -> UIResponder?
 }
 
-class InjectableResponder: UIResponder {
+open class InjectableResponder: UIResponder {
     private unowned var owner: ResponderChainInjection
 
     init(owner: ResponderChainInjection) {
@@ -14,7 +14,7 @@ class InjectableResponder: UIResponder {
         super.init()
     }
 
-    override var next: UIResponder? {
+    open override var next: UIResponder? {
         owner.nextResponderForResponder(self)
     }
 }

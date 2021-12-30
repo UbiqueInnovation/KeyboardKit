@@ -126,7 +126,7 @@ class SelectableCollectionKeyHandler: InjectableResponder {
          key commands when not on the responder chain using the `isInResponderChain` helper.
          */
         if collection.shouldAllowSelection && isInResponderChain {
-            if UIFocusSystem(for: collection) == nil && UIResponder.isTextInputActive == false {
+            if UIFocusSystem(for: collection) == nil {
                 // On iOS 15.0 (as of beta 4) a key command with an action that nothing can perform still blocks
                 // other key commands from handling the same input. This was not an issue on iOS 14 and earlier.
                 // This has been reported as FB9469253.
